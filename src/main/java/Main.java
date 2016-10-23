@@ -2,9 +2,8 @@ import static spark.Spark.*;
 
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-import org.sql2o.logging.SysOutLogger;
 
-import java.util.List;
+import java.util.*;
 
 class Elective {
     private String title;
@@ -36,7 +35,7 @@ class Elective {
 
 public class Main {
     public static void main(String[] args) {
-        String DB_URL = "jdbc:mysql://node4.codenvy.io:33178/www";
+        String DB_URL = "jdbc:mysql://node5.codenvy.io:34189/www";
         String USER = "www";
         String PASS = "password";
 
@@ -46,20 +45,42 @@ public class Main {
             return "Hello world!";
         }));
 
-        get("/view-electives", (request, response) -> {
-            String sql =
-                    "SELECT title, description, lecturer " +
-                            "FROM electives " +
-                            "WHERE id = :id;";
+        get("/electives/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id"));
+            String sql = "SELECT title, description, lecturer " +
+                    "FROM electives " +
+                    "WHERE id = :id;";
             try(Connection con = sql2o.open()) {
                 Elective elective = con.createQuery(sql)
-                        .addParameter("id", 1)
+                        .addParameter("id", id)
                         .executeAndFetchFirst(Elective.class);
                 return elective.toHTML();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                return e.getMessage();
+                return String.format("Couldn't retrieve elective with id %d", id);
             }
+        });
+
+        post("/electives", (request, response) -> {
+            String title = request.queryParams("title");
+            String description = request.queryParams("description");
+            String lecturer = request.queryParams("lecturer");
+
+            String query = "INSERT INTO electives (title, description, lecturer) VALUES " +
+                    "(:title, :description, :lecturer)";
+
+            try (Connection con = sql2o.beginTransaction()) {
+                sql2o.createQuery(query).addParameter("title", title)
+                        .addParameter("description", description)
+                        .addParameter("lecturer", lecturer)
+                        .executeUpdate();
+                con.commit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return "Couldn't insert new elective.";
+            }
+
+            return "Success!";
         });
     }
 }
