@@ -5,20 +5,17 @@
         "pullrequest"
       ],
       "problems": [],
-      "description": "Sparkjava app using MySQL as persistent storage",
       "source": {
-        "location": "https://github.com/lyuboraykov/codenvy-spark-java.git",
+        "location": "https://github.com/lyuboraykov/codenvy-spark-java",
         "type": "git",
-        "parameters": {
-          "branch": "mysql"
-        }
+        "parameters": {}
       },
-      "name": "web-java-3",
+      "name": "project-web",
       "type": "maven",
-      "path": "/web-java-3",
+      "path": "/project-web",
       "attributes": {
         "contribute_to_branch": [
-          "mysql"
+          "master"
         ]
       }
     }
@@ -31,8 +28,8 @@
       "attributes": {}
     },
     {
-      "commandLine": "mvn -f /projects/web-java-3 clean install -DskipTests",
-      "name": "web-java-3: build",
+      "commandLine": "clean install -DskipTests",
+      "name": "codenvy-spark-java: build",
       "type": "mvn",
       "attributes": {
         "previewUrl": ""
@@ -40,15 +37,31 @@
     },
     {
       "commandLine": "clean install exec:java",
-      "name": "web-java-3: execute",
+      "name": "codenvy-spark-java: execute",
       "type": "mvn",
+      "attributes": {
+        "previewUrl": ""
+      }
+    },
+    {
+      "commandLine": "cd /projects && git clone https://github.com/lyuboraykov/codenvy-spark-java.git",
+      "name": "Initiate Project",
+      "type": "custom",
+      "attributes": {
+        "previewUrl": ""
+      }
+    },
+    {
+      "commandLine": "cd && git clone https://github.com/lyuboraykov/codenvy-spark-java.git && cd codenvy-spark-java && mysql -u $MYSQL_USER -p$MYSQL_PASSWORD < init-db.sql",
+      "name": "Initiate DB",
+      "type": "custom",
       "attributes": {
         "previewUrl": ""
       }
     }
   ],
   "defaultEnv": "default",
-  "name": "mysql-workspace",
+  "name": "sparkjava-mysql",
   "environments": {
     "default": {
       "machines": {
@@ -68,7 +81,7 @@
             "org.eclipse.che.ssh"
           ],
           "servers": {
-              "4567/tcp": {
+            "4567/tcp": {
               "properties": {},
               "protocol": "http",
               "port": "4567"
