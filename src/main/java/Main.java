@@ -41,10 +41,6 @@ public class Main {
 
         Sql2o sql2o = new Sql2o(DB_URL, USER, PASS);
 
-        get("/hello", ((request, response) -> {
-            return "Hello world!";
-        }));
-
         get("/electives/:id", (request, response) -> {
             int id = Integer.parseInt(request.params(":id"));
             String sql = "SELECT title, description, lecturer " +
