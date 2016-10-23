@@ -52,7 +52,7 @@
       }
     },
     {
-      "commandLine": "cd && git clone https://github.com/lyuboraykov/codenvy-spark-java.git && cd codenvy-spark-java && mysql -u $MYSQL_USER -p$MYSQL_PASSWORD < init-db.sql",
+      "commandLine": "mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -e 'USE www; CREATE TABLE electives (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(128), description VARCHAR(1024), lecturer VARCHAR(128));'",
       "name": "Initiate DB",
       "type": "custom",
       "attributes": {

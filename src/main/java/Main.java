@@ -1,5 +1,10 @@
 import static spark.Spark.*;
+
+import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import org.sql2o.logging.SysOutLogger;
+
+import java.util.List;
 
 class Elective {
     private String title;
@@ -31,7 +36,7 @@ class Elective {
 
 public class Main {
     public static void main(String[] args) {
-        String DB_URL = "node3.codenvy.io:36357";
+        String DB_URL = "jdbc:mysql://node4.codenvy.io:33178/www";
         String USER = "www";
         String PASS = "password";
 
@@ -40,5 +45,21 @@ public class Main {
         get("/hello", ((request, response) -> {
             return "Hello world!";
         }));
+
+        get("/view-electives", (request, response) -> {
+            String sql =
+                    "SELECT title, description, lecturer " +
+                            "FROM electives " +
+                            "WHERE id = :id;";
+            try(Connection con = sql2o.open()) {
+                Elective elective = con.createQuery(sql)
+                        .addParameter("id", 1)
+                        .executeAndFetchFirst(Elective.class);
+                return elective.toHTML();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+        });
     }
 }

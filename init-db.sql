@@ -2,16 +2,17 @@ USE www;
 
 CREATE TABLE electives
 (
+  id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(128),
-  decription VARCHAR(1024),
+  description VARCHAR(1024),
   lecturer VARCHAR(128)
 );
 
-INSERT INTO electives (title, decription, lecturer)
-VALUES ("Програмиране с Go", "Да научим Go", "Николай Бачийски");
+INSERT INTO electives (title, description, lecturer)
+VALUES ("Programming with Go", "Let's learn Go", "Nikolay Batchiyski");
 
-INSERT INTO electives (title, decription, lecturer)
-VALUES ("АКДУ", "Да завършим ФМИ", "Свелин Иванов");
+INSERT INTO electives (title, description, lecturer)
+VALUES ("AKDU", "Let's Graduate", "Svetlin Ivanov");
 
-INSERT INTO electives (title, decription, lecturer)
-VALUES ("Уеб Технологии", "Да научим уеба", "Милен Иванов");
+INSERT INTO electives (title, description, lecturer)
+VALUES ("Web technologies", "Let's learn the web", "Milen Ivanov");
