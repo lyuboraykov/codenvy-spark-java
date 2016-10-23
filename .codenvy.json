@@ -1,0 +1,89 @@
+{
+  "projects": [
+    {
+      "mixins": [
+        "pullrequest"
+      ],
+      "problems": [],
+      "description": "Sparkjava app using MySQL as persistent storage",
+      "source": {
+        "location": "https://github.com/lyuboraykov/codenvy-spark-java.git",
+        "type": "git",
+        "parameters": {
+          "branch": "mysql"
+        }
+      },
+      "name": "web-java-3",
+      "type": "maven",
+      "path": "/web-java-3",
+      "attributes": {
+        "contribute_to_branch": [
+          "mysql"
+        ]
+      }
+    }
+  ],
+  "commands": [
+    {
+      "commandLine": "mysql -u $MYSQL_USER -p$MYSQL_PASSWORD -e 'show databases;'",
+      "name": "show databases",
+      "type": "custom",
+      "attributes": {}
+    },
+    {
+      "commandLine": "mvn -f /projects/web-java-3 clean install -DskipTests",
+      "name": "web-java-3: build",
+      "type": "mvn",
+      "attributes": {
+        "previewUrl": ""
+      }
+    },
+    {
+      "commandLine": "clean install exec:java",
+      "name": "web-java-3: execute",
+      "type": "mvn",
+      "attributes": {
+        "previewUrl": ""
+      }
+    }
+  ],
+  "defaultEnv": "default",
+  "name": "mysql-workspace",
+  "environments": {
+    "default": {
+      "machines": {
+        "db": {
+          "agents": [
+            "org.eclipse.che.terminal"
+          ],
+          "servers": {},
+          "attributes": {
+            "memoryLimitBytes": "1073741824"
+          }
+        },
+        "dev-machine": {
+          "agents": [
+            "org.eclipse.che.terminal",
+            "org.eclipse.che.ws-agent",
+            "org.eclipse.che.ssh"
+          ],
+          "servers": {
+              "4567/tcp": {
+              "properties": {},
+              "protocol": "http",
+              "port": "4567"
+            }
+          },
+          "attributes": {
+            "memoryLimitBytes": "1073741824"
+          }
+        }
+      },
+      "recipe": {
+        "contentType": "application/x-yaml",
+        "type": "compose",
+        "content": "services:\n  db:\n    image: codenvy/mysql\n    environment:\n      MYSQL_DATABASE: www\n      MYSQL_USER: www\n      MYSQL_PASSWORD: password\n    mem_limit: 1073741824\n  dev-machine:\n    image: codenvy/ubuntu_jdk8\n    mem_limit: 1073741824\n    depends_on:\n      - db\n"
+      }
+    }
+  }
+}
