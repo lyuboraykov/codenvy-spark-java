@@ -70,12 +70,12 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>Main</mainClass>
+                    <mainClass>app.Application</mainClass>
                     <arguments>
                     </arguments>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    
+
 </project>
