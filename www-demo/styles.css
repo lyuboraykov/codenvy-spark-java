@@ -1,0 +1,38 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+.spinner {
+    animation-name: spin;
+
+    animation-duration: 0.5s;
+
+    animation-timing-function: linear;
+
+    animation-delay: 0s;
+
+    animation-iteration-count: infinite;
+
+    animation-direction: normal;
+
+    animation-fill-mode: none;
+
+    animation-play-state: running;
+
+    border: 2px solid transparent;
+    border-top: 2px solid darkmagenta;
+    border-left: 2px solid darkmagenta;
+    border-radius: 50px;
+    width: 32px;
+    height: 32px;
+    cursor: wait;
+    display: block;
+
+    transition: all 400ms ease !important;
+}
