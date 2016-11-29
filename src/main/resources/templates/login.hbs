@@ -1,0 +1,11 @@
+<form id="loginForm" method="post" action="/login">
+    {{#if authenticationFailed}}
+        <h1 style="color: red;">Wrong username or password</h1>
+    {{/if}}
+    <label for="username">Username:</label>
+    <input type="text" name="username" value="" required>
+    <label for="password">Password:</label>
+    <input type="password" name="password" value="" required>
+    <input type="hidden" name="redirect" value="{{redirect}}">
+    <input type="submit" value="Log In">
+</form>

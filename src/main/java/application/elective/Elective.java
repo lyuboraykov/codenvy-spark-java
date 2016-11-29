@@ -1,15 +1,12 @@
-package app.elective;
+package application.elective;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public class Elective {
+class Elective {
     private String title;
     private String description;
     private String lecturer;
-    private int id;
 
     Elective(String title, String description, String lecturer) {
         this.title = title;
@@ -30,10 +27,10 @@ public class Elective {
     }
 
     public Map<String, String> toMap() {
-        Map<String, String> mapRepresentation = new HashMap<>();
-        mapRepresentation.put("title", this.title);
-        mapRepresentation.put("description", this.description);
-        mapRepresentation.put("lecturer", this.lecturer);
-        return mapRepresentation;
+        Map<String, String> repr = new HashMap<>();
+        repr.put("title", this.title);
+        repr.put("lecturer", this.lecturer);
+        repr.put("description", this.description);
+        return repr;
     }
 }

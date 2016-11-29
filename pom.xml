@@ -33,6 +33,12 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.3m</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -70,7 +76,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>app.Application</mainClass>
+                    <mainClass>application.Application</mainClass>
                     <arguments>
                     </arguments>
                 </configuration>
