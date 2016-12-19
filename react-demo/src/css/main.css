@@ -1,0 +1,12 @@
+.done {
+    text-decoration: line-through;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+h3 {
+    display: inline-block;
+    margin-right: 10px;
+}
